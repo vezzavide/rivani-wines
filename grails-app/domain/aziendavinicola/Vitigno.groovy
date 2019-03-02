@@ -7,7 +7,7 @@ class Vitigno {
 
     static constraints = {
         nome blank: false
-        caratteristiche()
+        caratteristiche size: 0..65535, widget: 'textarea'
         prodotti()
     }
 }
