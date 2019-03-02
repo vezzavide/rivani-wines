@@ -1,7 +1,5 @@
 package aziendavinicola
 
-
-
 class Prodotto {
     String nome
     String caratteristiche
