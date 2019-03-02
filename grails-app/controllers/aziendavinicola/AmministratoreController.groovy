@@ -15,17 +15,11 @@ class AmministratoreController {
     }
 
     def show(Long id) {
-        //respond amministratoreService.get(id)
-        [amministratore: amministratoreService.get(id)]
-
+        respond amministratoreService.get(id)
     }
 
     def create() {
         respond new Amministratore(params)
-    }
-
-    def test(){
-        render(view: 'test')
     }
 
     def save(Amministratore amministratore) {

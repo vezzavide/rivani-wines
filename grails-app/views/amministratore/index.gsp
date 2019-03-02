@@ -24,11 +24,5 @@
                 <g:paginate total="${amministratoreCount ?: 0}" />
             </div>
         </div>
-
-    <g:set var="num" value="${1}" />
-    <g:while test="${num < 5 }">
-        <p>Numero ${num++}</p>
-    </g:while>
-
     </body>
 </html>
