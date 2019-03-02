@@ -6,5 +6,6 @@ class LineaOrdine {
     Annata annata
 
     static constraints = {
+
     }
 }
