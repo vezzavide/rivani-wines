@@ -1,6 +1,8 @@
 package aziendavinicola
 
 import java.text.DecimalFormat
+import java.time.Instant
+import java.time.Year
 
 class Annata {
     int anno
@@ -15,6 +17,13 @@ class Annata {
 
     static constraints = {
         notifiche display: false
-        anno unique: prodotto // unique constraint definita su anno e prodotto
+        // anno-prodotto costituisce una chiave univoca
+        anno unique: 'prodotto', min: 1800,  max: Year.now().getValue()
+        prodotto()
+        // tentativo di ottenere campo TEXT in mysql (e/o altri db)
+        prezzo notEqual: BigDecimal.ZERO
+        giacenza()
+        totaleBottiglieProdotte notEqual: 0
+        note size: 0..65535, widget: 'textarea'
     }
 }

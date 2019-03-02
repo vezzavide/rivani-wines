@@ -4,14 +4,16 @@ import javax.sound.sampled.Line
 import java.text.DecimalFormat
 
 class Ordine {
-    int id
     Date data
     BigDecimal importo
-
-    //static belongsTo = [cliente: Cliente]
-    Dipendente dipendente // dipendente che ha preso in carico l'ordine
+    // dipendente che ha preso in carico l'ordine
+    Dipendente dipendente
     static hasMany = [lineaOrdine: LineaOrdine]
 
     static constraints = {
+        data()
+        importo()
+        dipendente nullable: true
+        lineaOrdine()
     }
 }

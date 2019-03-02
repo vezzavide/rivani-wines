@@ -7,5 +7,6 @@ class Cantina {
     static hasMany = [prodotti: Prodotto]
 
     static constraints = {
+        nome blank: false
     }
 }
