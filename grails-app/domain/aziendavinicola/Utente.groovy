@@ -1,5 +1,6 @@
 package aziendavinicola
 
+
 class Utente {
 
     String nome

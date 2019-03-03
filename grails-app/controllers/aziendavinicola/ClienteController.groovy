@@ -87,6 +87,18 @@ class ClienteController {
         }
     }
 
+    def signup(){
+
+    }
+
+    def login(){
+    }
+
+    def autenticaUtente(){
+        System.out.println(params.toString())
+        render(view: "index")
+    }
+
     protected void notFound() {
         request.withFormat {
             form multipartForm {
