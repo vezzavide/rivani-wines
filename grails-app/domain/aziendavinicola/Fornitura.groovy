@@ -15,4 +15,6 @@ class Fornitura {
         quantita min: 1
         dipendente()
     }
+
+
 }

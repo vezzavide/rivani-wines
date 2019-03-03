@@ -10,4 +10,13 @@ class Vitigno {
         caratteristiche size: 0..65535, widget: 'textarea'
         prodotti()
     }
+
+    String toString(){
+        try{
+            nome.capitalize()
+        }
+        catch(NullPointerException){
+            super.toString()
+        }
+    }
 }

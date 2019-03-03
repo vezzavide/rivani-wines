@@ -26,4 +26,14 @@ class Annata {
         totaleBottiglieProdotte notEqual: 0
         note size: 0..65535, widget: 'textarea'
     }
+
+    String toString(){
+        try{
+            String annataToString = prodotto + " del " + anno
+            annataToString.capitalize()
+        }
+        catch(NullPointerException){
+            super.toString()
+        }
+    }
 }

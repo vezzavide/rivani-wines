@@ -15,4 +15,13 @@ class Prodotto {
         cantina()
         inCatalogo()
     }
+
+    String toString(){
+        try{
+            nome.capitalize()
+        }
+        catch(NullPointerException){
+            super.toString()
+        }
+    }
 }

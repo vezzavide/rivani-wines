@@ -1,9 +1,18 @@
 package aziendavinicola
 
 class Fornitore {
-    String name
+    String nome
 
     static constraints = {
-        name blank: false
+        nome blank: false
+    }
+
+    String toString(){
+        try{
+            nome.capitalize()
+        }
+        catch(NullPointerException){
+            super.toString()
+        }
     }
 }
