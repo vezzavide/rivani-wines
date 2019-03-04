@@ -97,8 +97,7 @@ class UtenteController {
         def utente = Utente.findByEmail(params.email)
 
         if (utente == null){
-            println("utente null")
-            //TODO: flash error message
+            flash.error = "Indirizzo email non trovato!"
             redirect action: 'login'
             return
         }
@@ -115,8 +114,9 @@ class UtenteController {
             }
         }
         else{
-            //TODO: flash error message
-            println("Autenticazione fallita!")
+            flash.error = "Password errata!"
+            redirect action: 'login'
+            return
         }
 
         render(view: "index")
