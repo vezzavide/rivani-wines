@@ -87,6 +87,41 @@ class UtenteController {
         }
     }
 
+    def login(){
+
+    }
+
+
+    def autenticaUtente(){
+        System.out.println(params.toString())
+        def utente = Utente.findByEmail(params.email)
+
+        if (utente == null){
+            println("utente null")
+            //TODO: flash error message
+            redirect action: 'login'
+            return
+        }
+
+        if(utente.password == params.password){
+            println("Autenticato!")
+            session["utente"] = utente
+            // smista richiesta
+            if(utente.instanceOf(Cliente)){
+                //TODO: redirect to catalogo
+            }
+            else if(utente.instanceOf(Dipendente)){
+                //TODO: redirect to pannello amminstrazione
+            }
+        }
+        else{
+            //TODO: flash error message
+            println("Autenticazione fallita!")
+        }
+
+        render(view: "index")
+    }
+
     protected void notFound() {
         request.withFormat {
             form multipartForm {
