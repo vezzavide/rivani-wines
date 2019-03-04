@@ -1,6 +1,8 @@
 package aziendavinicola
 
 import grails.validation.ValidationException
+import org.grails.core.DefaultGrailsControllerClass
+
 import static org.springframework.http.HttpStatus.*
 
 class UtenteController {
@@ -88,7 +90,6 @@ class UtenteController {
     }
 
     def login(){
-
     }
 
 
@@ -104,7 +105,7 @@ class UtenteController {
 
         if(utente.password == params.password){
             println("Autenticato!")
-            session["utente"] = utente
+            session.utente = utente
             // smista richiesta
             if(utente.instanceOf(Cliente)){
                 //TODO: redirect to catalogo
