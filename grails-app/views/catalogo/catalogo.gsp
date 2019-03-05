@@ -62,7 +62,7 @@
                 </div> 
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="index.html">Home</a></li>
+                        <li class="active"><g:link action="catalogo">Home</g:link></li>
                         <li><a href="cart.html">Carrello</a></li>
 
                     </ul>
@@ -96,14 +96,14 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="single-shop-product">
                             <div class="product-upper">
-                                <img src="img/product-2.jpg" alt="">
+                                <asset:image src="shopTemplate/img/product-2.jpg"></asset:image>
                             </div>
-                            <h2><a href="">${coppiaProdottoPrezzo.get(0)}</a></h2>
+                            <h2><g:link controller="prodotto" action="schedaProdotto" id="${coppiaProdottoPrezzo.get(0).id}">${coppiaProdottoPrezzo.get(0)}</g:link></h2>
                             <div class="product-carousel-price">
                                 <ins>${coppiaProdottoPrezzo.get(1)}</ins>
                             </div>
                             <div class="product-option-shop">
-                                <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="/canvas/shop/?add-to-cart=70">Compra</a>
+                                <g:link controller="prodotto" action="schedaProdotto" id="${coppiaProdottoPrezzo.get(0).id}" class="add_to_cart_button">Compra</g:link>
                             </div>
                         </div>
                     </div>

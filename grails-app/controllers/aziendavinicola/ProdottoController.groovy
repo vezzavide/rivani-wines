@@ -88,7 +88,28 @@ class ProdottoController {
     }
 
     def schedaProdotto(Long id){
+        def prodotto = Prodotto.get(id)
+        def notificheAnno = []
 
+        if (prodotto == null) {
+            notFound()
+            return
+        }
+/*        // Aggiunto per evitare LazyInitalizationException -  ma non lo capisco (da stackoverflow)
+        if(!session.utente.isAttached()){
+            session.utente.attach()
+        }*/
+        if(session.role == "cliente"){
+            def cliente = Cliente.get(session.utente.id)
+            def notifiche = cliente.notifiche
+
+            println(notifiche)
+            notifiche.each{
+                notificheAnno.add(it.annata.anno)
+            }
+        }
+        println(notificheAnno)
+        [prodotto: prodotto, notificheAnno: notificheAnno]
     }
 
     protected void notFound() {

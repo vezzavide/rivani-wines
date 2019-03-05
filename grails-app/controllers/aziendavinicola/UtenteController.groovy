@@ -93,8 +93,9 @@ class UtenteController {
     }
 
     def logout(){
-        session.utente = null
-        session.role = null
+        /*session.utente = null
+        session.role = null*/
+        session.invalidate()
         redirect action: 'catalogo', controller: 'catalogo'
         return
     }

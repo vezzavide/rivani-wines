@@ -7,7 +7,7 @@ class NotificaController {
 
     NotificaService notificaService
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: ["DELETE", "POST"]]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -30,6 +30,10 @@ class NotificaController {
 
         try {
             notificaService.save(notifica)
+            if(session.role != null && session.role == 'cliente'){
+                redirect controller: 'prodotto', action: 'schedaProdotto', id: notifica.annata.prodotto.id
+                return
+            }
         } catch (ValidationException e) {
             respond notifica.errors, view:'create'
             return
@@ -75,8 +79,13 @@ class NotificaController {
             notFound()
             return
         }
-
+        def prodotto = notificaService.get(id).annata.prodotto
         notificaService.delete(id)
+
+        if(session.role != null && session.role == 'cliente'){
+            redirect controller: 'prodotto', action: 'schedaProdotto', id: prodotto.id
+            return
+        }
 
         request.withFormat {
             form multipartForm {
