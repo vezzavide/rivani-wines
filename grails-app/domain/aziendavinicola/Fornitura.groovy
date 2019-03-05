@@ -13,7 +13,7 @@ class Fornitura {
         fornitore()
         annata()
         quantita min: 1
-        dipendente()
+        dipendente display: false
     }
 
 

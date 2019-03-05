@@ -87,6 +87,10 @@ class ProdottoController {
         }
     }
 
+    def schedaProdotto(Long id){
+
+    }
+
     protected void notFound() {
         request.withFormat {
             form multipartForm {

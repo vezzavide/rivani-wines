@@ -10,4 +10,13 @@ class LineaOrdine {
         quantita notEqual: 0
         annata()
     }
+
+    String toString(){
+        try{
+            annata.toString() + " x " + quantita.toString()
+        }
+        catch(NullPointerException){
+            super.toString()
+        }
+    }
 }

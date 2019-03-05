@@ -87,6 +87,51 @@ class CatalogoController {
         }
     }
 
+    def catalogo(){
+        //TODO: popola catalogo con prodotti
+        def listaProdotti = Prodotto.findAllByInCatalogo(true)
+
+        // Aggiunge il range di prezzo per ciascun prodotto così da poterlo visualizzare nella view
+        def listaProdottiPrezzi = []
+
+        listaProdotti.each{
+            def prodotto = it
+            // Ottiene massimo prezzo
+            def maxAnnata = Annata.createCriteria().list{
+                eq("prodotto", prodotto)
+                maxResults(1)
+                order("prezzo", "desc")
+            }
+
+            // Ottiene minimo prezzo
+            def minAnnata = Annata.createCriteria().list{
+                eq("prodotto", prodotto)
+                maxResults(1)
+                order("prezzo", "asc")
+            }
+
+            def prezzo
+
+            // Costruisce il label per il prezzo del prodotto
+            if(maxAnnata[0] == null){
+                prezzo = "€ n.d."
+            } else if(maxAnnata[0] == minAnnata[0]){
+                prezzo = "€ " + maxAnnata[0].prezzo.toString()
+            } else{
+                prezzo = "€ " + minAnnata[0].prezzo.toString() + " - € " + maxAnnata[0].prezzo.toString()
+            }
+
+            def coppiaProdottoPrezzo = [prodotto, prezzo]
+
+            listaProdottiPrezzi.add(coppiaProdottoPrezzo)
+        }
+
+
+        // Ritorna solo i prodotti da visualizzare nel catalogo con relativi prezzi (o range di prezzi)
+        [listaProdottiPrezzi: listaProdottiPrezzi]
+    }
+
+
     protected void notFound() {
         request.withFormat {
             form multipartForm {

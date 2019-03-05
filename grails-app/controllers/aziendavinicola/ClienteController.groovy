@@ -30,6 +30,10 @@ class ClienteController {
 
         try {
             clienteService.save(cliente)
+            if (session.role != 'amministratore' || session.role != 'dipendente'){
+                redirect action: 'login', controller: 'utente'
+                return
+            }
         } catch (ValidationException e) {
             respond cliente.errors, view:'create'
             return

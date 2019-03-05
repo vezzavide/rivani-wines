@@ -22,15 +22,14 @@ class Annata {
         prodotto()
         // tentativo di ottenere campo TEXT in mysql (e/o altri db)
         prezzo notEqual: BigDecimal.ZERO
-        giacenza()
+        giacenza validator: {val, obj -> val <= obj.totaleBottiglieProdotte}
         totaleBottiglieProdotte notEqual: 0
         note size: 0..65535, widget: 'textarea'
     }
 
     String toString(){
         try{
-            String annataToString = prodotto + " del " + anno
-            annataToString.capitalize()
+            String annataToString = prodotto.toString().capitalize() + " del " + anno.toString()
         }
         catch(NullPointerException){
             super.toString()

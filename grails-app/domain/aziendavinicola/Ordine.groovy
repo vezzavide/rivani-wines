@@ -10,12 +10,16 @@ class Ordine {
     // Quando si dovrà mostrare la lista degli ordini da evadere tra cui scegliere, si mostreranno solo quelli
     // con questa proprietà ancora a null
     Dipendente dipendente
-    static hasMany = [lineaOrdine: LineaOrdine]
+    Utente utente
+    static hasMany = [lineeOrdine: LineaOrdine]
+    boolean evaso = false
 
     static constraints = {
         data()
         importo()
+        utente()
         dipendente nullable: true
-        lineaOrdine()
+        lineeOrdine()
+        evaso()
     }
 }

@@ -29,7 +29,14 @@ class FornituraController {
         }
 
         try {
+            fornitura.dipendente = session.utente
+            fornitura.annata.giacenza += fornitura.quantita
             fornituraService.save(fornitura)
+            /*AnnataService annataService
+            def annata = Annata.findByAnno(fornitura.annata.id)
+            annata.giacenza -= params.quantita
+            annataService.save(annata)*/
+
         } catch (ValidationException e) {
             respond fornitura.errors, view:'create'
             return

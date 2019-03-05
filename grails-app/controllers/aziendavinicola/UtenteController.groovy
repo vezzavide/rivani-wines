@@ -92,6 +92,13 @@ class UtenteController {
     def login(){
     }
 
+    def logout(){
+        session.utente = null
+        session.role = null
+        redirect action: 'catalogo', controller: 'catalogo'
+        return
+    }
+
 
     def autenticaUtente(){
         System.out.println(params.toString())
@@ -106,12 +113,18 @@ class UtenteController {
         if(utente.password == params.password){
             println("Autenticato!")
             session.utente = utente
-            // smista richiesta
-            if(utente.instanceOf(Cliente)){
-                //TODO: redirect to catalogo
+            if (utente.instanceOf(Amministratore)){
+                session.role = 'amministratore'
+                // TODO: redirect to pannello amminstrazione
             }
-            else if(utente.instanceOf(Dipendente)){
-                //TODO: redirect to pannello amminstrazione
+            else if (utente.instanceOf(Dipendente)){
+                session.role = 'dipendente'
+                // TODO: redirect to pannello amministrazione
+            }
+            else if (utente.instanceOf(Cliente)){
+                session.role = 'cliente'
+                redirect action: 'catalogo', controller: 'catalogo'
+                return
             }
         }
         else{

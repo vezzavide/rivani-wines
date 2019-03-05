@@ -1,6 +1,8 @@
 package aziendavinicola
 
 import grails.validation.ValidationException
+import sun.font.TrueTypeFont
+
 import static org.springframework.http.HttpStatus.*
 
 class OrdineController {
@@ -85,6 +87,19 @@ class OrdineController {
             }
             '*'{ render status: NO_CONTENT }
         }
+    }
+
+    def evadi(Long id){
+        //TODO: evadere ordine
+        def ordine = Ordine.get(id)
+        ordine.evaso = true
+        try {
+            ordineService.save(ordine)
+        } catch (ValidationException e) {
+            respond ordine.errors, view:'edit'
+            return
+        }
+
     }
 
     protected void notFound() {

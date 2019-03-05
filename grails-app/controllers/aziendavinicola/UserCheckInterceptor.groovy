@@ -1,6 +1,7 @@
 package aziendavinicola
 
-//TODO: smista i redirect a seconda dello stato dell'utente: non loggato, cliente loggato o dipendente loggato?
+//TODO: smista i redirect a seconda dello stato dell'utente:
+// non loggato, cliente loggato, dipendente loggato o amministratore loggato?
 class UserCheckInterceptor {
 /*    UserCheckInterceptor(){
         matchAll()
