@@ -105,10 +105,10 @@
                                 <table cellspacing="0" class="shop_table cart">
                                     <thead>
                                         <tr>
-                                            <th class="product-name">Product</th>
-                                            <th class="product-price">Price</th>
-                                            <th class="product-quantity">Quantity</th>
-                                            <th class="product-subtotal">Total</th>
+                                            <th class="product-name">Prodotto</th>
+                                            <th class="product-price">Prezzo</th>
+                                            <th class="product-quantity">Quantità</th>
+                                            <th class="product-subtotal">Totale</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -154,8 +154,10 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="actions" colspan="6">                 
-                        
+                                            <td class="actions" colspan="6" style="text-align: right">
+                                                <h2>
+                                                    Totale: 1500
+                                                </h2>
                                                 <input type="submit" value="Checkout" name="proceed" class="checkout-button button alt wc-forward">
                                             </td>
                                         </tr>

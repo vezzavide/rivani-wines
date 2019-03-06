@@ -87,7 +87,7 @@ class LineaOrdineController {
         }
     }
 
-
+    //TODO: gestire l'atomicità delle operazioni in questo metodo, possibilmente con un service
     def aggiungiACarrello(){
         def annata = Annata.get(params.annata)
         String quantitaString = params.quantita
@@ -104,6 +104,10 @@ class LineaOrdineController {
             ordineCarrello.evaso = false
             ordineCarrello.attualeCarrello = true
         }
+
+        // Aggiungo linea ordine al carrello e decremento subito la giacenza dell'annata
+        // come una sorta di meccanismo di prenotazione da parte del cliente
+        //(TODO: questa chiaramente non è una soluzione ideale e in futuro necessita miglioramenti)
         def lineaOrdine = new LineaOrdine()
         annata.giacenza -= quantita
         lineaOrdine.annata = annata
@@ -111,6 +115,19 @@ class LineaOrdineController {
         ordineCarrello.addToLineeOrdine(lineaOrdine)
         ordineCarrello.save(flush: true)
         annata.save(flush: true)
+
+        // Gestisco notifiche ai dipendenti
+        // NB: gestirle in questo punto è sufficiente in quanto i dipendenti sono interessati a venire a conoscenza
+        // di una giacenza nulla solo in caso questa sia cnseguenza di un ordine di un cliente. in tal caso,
+        // l'operazione deve passare per forza da questo punto
+        if(annata.giacenza == 0) {
+            def notificationService = new NotificationService()
+            def responsabiliMagazzino = Dipendente.findAllByResponsabileMagazzino(true)
+            responsabiliMagazzino.each {
+                String messaggio = "Scorte esaurite per " + annata.toString() + "!"
+                notificationService.sendNotification(it, messaggio)
+            }
+        }
 
         redirect controller:'prodotto', action: 'schedaProdotto', id: annata.prodotto.id
     }
