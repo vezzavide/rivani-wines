@@ -4,6 +4,7 @@ class Vitigno {
     String nome
     String caratteristiche
     static hasMany = [prodotti: Prodotto]
+    static belongsTo = Prodotto
 
     static constraints = {
         nome blank: false

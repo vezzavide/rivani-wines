@@ -6,6 +6,7 @@ import static org.springframework.http.HttpStatus.*
 class FornituraController {
 
     FornituraService fornituraService
+    NotificaService notificaService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -29,14 +30,27 @@ class FornituraController {
         }
 
         try {
+            // Aggionra quantità della relativa annata e salva
+            int vecchiaGiacenza = fornitura.annata.giacenza
+            println("Vecchia giacenza: " + vecchiaGiacenza)
             fornitura.dipendente = session.utente
             fornitura.annata.giacenza += fornitura.quantita
             fornituraService.save(fornitura)
-            /*AnnataService annataService
-            def annata = Annata.findByAnno(fornitura.annata.id)
-            annata.giacenza -= params.quantita
-            annataService.save(annata)*/
 
+            // Gestisce le notifiche dei clienti
+            if(vecchiaGiacenza == 0){
+                fornitura.annata.notifiche.each{
+                    def notificationService = new NotificationService()
+                    String messaggio = "È arrivata una nuova fornitura di " + it.annata.toString() + "!"
+                    notificationService.sendNotification(it.cliente, messaggio)
+                    // elimino la notifica attuale (in quanto non voglio che l'utente riceva nuovamente notifiche
+                    // senza che lo richieda espressamente
+                    def notifica = Notifica.get(it.id)
+                    it.annata.removeFromNotifiche(it)
+                    it.cliente.removeFromNotifiche(it)
+                    notifica.delete(flush: true)
+                }
+            }
         } catch (ValidationException e) {
             respond fornitura.errors, view:'create'
             return
