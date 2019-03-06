@@ -101,7 +101,7 @@
                 <div class="col-md-8">
                     <div class="product-content-right">
                         <div class="woocommerce">
-                            <form method="post" action="#">
+                            <g:form controller="ordine" action="checkout">
                                 <table cellspacing="0" class="shop_table cart">
                                     <thead>
                                         <tr>
@@ -113,57 +113,41 @@
                                     </thead>
                                     <tbody>
 
-                                        <tr class="cart_item">
 
-                                            <td class="product-name">
-                                                <a href="single-product.html">Ship Your Idea</a> 
-                                            </td>
+                                        <g:each in="${lineeOrdine}" var="lineaOrdine">
+                                            <tr class="cart_item">
 
-                                            <td class="product-price">
-                                                <span class="amount">£15.00</span> 
-                                            </td>
+                                                <td class="product-name">
+                                                    <a href="single-product.html">${lineaOrdine.annata.toString()}</a>
+                                                </td>
 
-                                            <td class="product-quantity">
-                                                <div class="quantity buttons_added">
-                                                    5
-                                                </div>
-                                            </td>
+                                                <td class="product-price">
+                                                    <span class="amount">€ ${lineaOrdine.annata.prezzo.toString()}</span>
+                                                </td>
 
-                                            <td class="product-subtotal">
-                                                <span class="amount">£15.00</span> 
-                                            </td>
-                                        </tr>
+                                                <td class="product-quantity">
+                                                    <div class="quantity buttons_added">
+                                                        ${lineaOrdine.quantita.toString()}
+                                                    </div>
+                                                </td>
 
+                                                <td class="product-subtotal">
+                                                    <span class="amount">€ ${lineaOrdine.getTotal().toString()}</span>
+                                                </td>
+                                            </tr>
+                                        </g:each>
 
-										<tr class="cart_item">
-
-                                            <td class="product-name">
-                                                <a href="single-product.html">Ship Your Idea</a> 
-                                            </td>
-
-                                            <td class="product-price">
-                                                <span class="amount">£15.00</span> 
-                                            </td>
-
-                                            <td class="product-quantity">
-                                                4
-                                            </td>
-
-                                            <td class="product-subtotal">
-                                                <span class="amount">£15.00</span> 
-                                            </td>
-                                        </tr>
                                         <tr>
                                             <td class="actions" colspan="6" style="text-align: right">
                                                 <h2>
-                                                    Totale: 1500
+                                                    Totale: € ${carrello.getTotal().toString()}
                                                 </h2>
-                                                <input type="submit" value="Checkout" name="proceed" class="checkout-button button alt wc-forward">
+                                                <input type="submit" value="Procedi" name="proceed" class="checkout-button button alt wc-forward">
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
-                            </form>
+                            </g:form>
 
 
                         </div>                        

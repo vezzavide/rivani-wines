@@ -19,4 +19,8 @@ class LineaOrdine {
             super.toString()
         }
     }
+
+    BigDecimal getTotal(){
+        return  annata.prezzo * quantita
+    }
 }

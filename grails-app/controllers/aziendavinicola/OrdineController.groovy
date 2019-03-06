@@ -102,9 +102,33 @@ class OrdineController {
 
     }
 
+    // Popola la pagina del carrello
     def carrello(){
-        //flash.message = "prova"
+        if(session.utente == null || session.role != 'cliente'){
+            redirect controller: 'utente', action: 'login'
+            return
+        }
 
+        //flash.message = "prova"
+        //TODO: servi elenco prodotti carrello
+        def carrello = Ordine.findByAttualeCarrelloAndCliente(true, session.utente)
+        if(carrello == null){
+            redirect controller: 'catalogo', action: 'catalogo'
+            flash.message = "Il carrello è attualmente vuoto."
+            return
+        }
+        def lineeOrdine = carrello.lineeOrdine
+
+        [carrello: carrello, lineeOrdine: lineeOrdine]
+    }
+
+    // salva l'ordine e lo rende disponibile ai dipendenti per poterlo evadere
+    def checkout(){
+        def carrello = Ordine.findByAttualeCarrelloAndCliente(true, session.utente)
+        carrello.attualeCarrello = false
+        carrello.save(flush: true)
+        flash.message = "Ordine confermato!"
+        redirect controller: 'catalogo', action: 'catalogo'
         return
     }
 

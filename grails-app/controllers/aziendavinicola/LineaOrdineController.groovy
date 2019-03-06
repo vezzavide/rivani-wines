@@ -96,7 +96,7 @@ class LineaOrdineController {
 
         //prendo l'attuale carrello(un'istanza di ordine con attualeCarrello = true) dal database, se esiste,
         // altrimenti creo l'ordine
-        def ordineCarrello = Ordine.findByAttualeCarrello(true)
+        def ordineCarrello = Ordine.findByAttualeCarrelloAndCliente(true, session.utente)
         if(ordineCarrello == null){
             ordineCarrello = new Ordine()
             ordineCarrello.data = new Date()
@@ -128,7 +128,7 @@ class LineaOrdineController {
                 notificationService.sendNotification(it, messaggio)
             }
         }
-
+        flash.message = "Aggiunto al carrello!"
         redirect controller:'prodotto', action: 'schedaProdotto', id: annata.prodotto.id
     }
 
