@@ -116,11 +116,14 @@ class UtenteController {
             session.utente = utente
             if (utente.instanceOf(Amministratore)){
                 session.role = 'amministratore'
-                // TODO: redirect to pannello amminstrazione
+                redirect(action: 'toolAmministratore', controller: 'amministratore')
+                return
             }
             else if (utente.instanceOf(Dipendente)){
                 session.role = 'dipendente'
-                // TODO: redirect to pannello amministrazione
+                redirect action: 'toolDipendente', controller: 'dipendente'
+                return
+
             }
             else if (utente.instanceOf(Cliente)){
                 session.role = 'cliente'

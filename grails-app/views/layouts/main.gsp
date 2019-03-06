@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>
-        <g:layoutTitle default="Grails"/>
+        Rivani Wines amministrazione
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
@@ -16,7 +16,7 @@
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark navbar-static-top" role="navigation">
+<nav class="navbar navbar-expand-lg navbar-dark navbar-static-top" role="navigation" style="background: #750c4a">
     <a class="navbar-brand" href="/#"><asset:image src="wines-admin-tool-logo-little.png" alt="Grails Logo"/></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -28,7 +28,19 @@
         </ul>
     </div>
 
+    <nav>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Utente: ${session.utente.toString()} <span class="caret"></span></a>
+            <ul class="dropdown-menu" style="background: #515151">
+                <li class="dropdown-item" ><g:link controller="utente" action="logout"><i class="fa fa-user"></i>Logout</g:link></li>
+                <li class="dropdown-item"><g:link controller="utente" action="login"><i class="fa fa-user"></i>Accedi come altro utente</g:link></li>
+            </ul>
+        </li>
+    </nav>
+
 </nav>
+
+
 
 <g:layoutBody/>
 

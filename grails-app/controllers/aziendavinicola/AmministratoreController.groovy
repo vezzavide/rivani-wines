@@ -87,6 +87,10 @@ class AmministratoreController {
         }
     }
 
+    def toolAmministratore(){
+
+    }
+
     protected void notFound() {
         request.withFormat {
             form multipartForm {

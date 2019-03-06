@@ -87,6 +87,10 @@ class DipendenteController {
         }
     }
 
+    def toolDipendente(){
+
+    }
+
     protected void notFound() {
         request.withFormat {
             form multipartForm {

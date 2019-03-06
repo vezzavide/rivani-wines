@@ -30,7 +30,14 @@
                         <input class="delete" type="submit" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 
                     </g:if>
-                    <g:link class="list" action="evadi" resource="${this.ordine}"><g:message code="default.button" default="Evadi" /></g:link>
+
+                    <g:if test="${this.ordine.dipendente == null}">
+                        <g:link class="list" action="prendiInCarico" resource="${this.ordine}"><g:message code="default.button" default="Prendi in carico" /></g:link>
+                    </g:if>
+                    <g:else>
+                        <g:link class="list" action="evadi" resource="${this.ordine}"><g:message code="default.button" default="Evadi" /></g:link>
+                    </g:else>
+
                 </fieldset>
             </g:form>
         </div>

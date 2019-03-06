@@ -1,5 +1,6 @@
 package aziendavinicola
 
+import com.sun.org.apache.xpath.internal.operations.Or
 import grails.validation.ValidationException
 import sun.font.TrueTypeFont
 
@@ -14,6 +15,16 @@ class OrdineController {
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond ordineService.list(params), model:[ordineCount: ordineService.count()]
+    }
+
+    def indexOrdiniDaPrendereInCarico(){
+        def ordineList = Ordine.findAllByAttualeCarrelloAndDipendenteAndEvaso(false, null, false)
+        respond ordineList, model:[ordineCount: ordineService.count()], view: 'index'
+    }
+
+    def indexOrdiniDaEvadere(){
+        def ordineList = Ordine.findAllByAttualeCarrelloAndDipendenteAndEvaso(false, session.utente, false)
+        respond ordineList, model:[ordineCount: ordineService.count()], view: 'index'
     }
 
     def show(Long id) {
@@ -90,16 +101,25 @@ class OrdineController {
     }
 
     def evadi(Long id){
-        //TODO: evadere ordine
         def ordine = Ordine.get(id)
         ordine.evaso = true
         try {
             ordineService.save(ordine)
+            redirect controller: 'dipendente', action: 'toolDipendente'
+            return
         } catch (ValidationException e) {
             respond ordine.errors, view:'edit'
             return
         }
 
+    }
+
+    def prendiInCarico(Long id){
+        def ordine = Ordine.get(id)
+        ordine.dipendente = session.utente
+        ordineService.save(ordine)
+        redirect controller: 'ordine', action: 'show', id: id
+        return
     }
 
     // Popola la pagina del carrello
