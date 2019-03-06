@@ -32,4 +32,13 @@ class Ordine {
         }
         return total
     }
+
+    String toString(){
+        try{
+            "Ordine del " + data.toString() + " di " + cliente.toString() + " per un totale di € " + this.getTotal().toString()
+        }
+        catch(NullPointerException){
+            super.toString()
+        }
+    }
 }

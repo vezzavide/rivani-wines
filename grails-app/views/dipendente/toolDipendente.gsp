@@ -6,6 +6,12 @@
 </head>
 <body>
 
+<g:if test="${flash.message}">
+    <div class="alert alert-info" role="alert">
+        ${flash.message}
+    </div>
+</g:if>
+
 
 <div id="content" role="main">
     <section class="row colset-2-its">

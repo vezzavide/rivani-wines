@@ -21,7 +21,11 @@
             <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:display bean="ordine" />
+            <f:display bean="ordine"/>
+            <g:set var="cliente" value="${ordine.cliente}" />
+            <f:display bean="cliente" except="nome, cognome, email, notifiche, ordini, password"/>
+
+
             <g:form resource="${this.ordine}" method="DELETE">
                 <fieldset class="buttons">
                     <g:if test="${session.role == 'amministratore'}">

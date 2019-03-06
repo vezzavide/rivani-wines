@@ -105,6 +105,10 @@ class OrdineController {
         ordine.evaso = true
         try {
             ordineService.save(ordine)
+            def notificationService = new NotificationService()
+            String messaggio = "Il tuo ordine è stato spedito!\n" + ordine.toString()
+            notificationService.sendNotification(ordine.cliente, messaggio)
+            flash.message = "Ordine evaso!"
             redirect controller: 'dipendente', action: 'toolDipendente'
             return
         } catch (ValidationException e) {

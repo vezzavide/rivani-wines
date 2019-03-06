@@ -90,12 +90,14 @@ class UtenteController {
     }
 
     def login(){
+
     }
 
     def logout(){
         /*session.utente = null
         session.role = null*/
         session.invalidate()
+        flash.message = "Logout effettuato con successo."
         redirect action: 'catalogo', controller: 'catalogo'
         return
     }
@@ -106,7 +108,7 @@ class UtenteController {
         def utente = Utente.findByEmail(params.email)
 
         if (utente == null){
-            flash.error = "Indirizzo email non trovato!"
+            flash.message = "Indirizzo email non trovato!"
             redirect action: 'login'
             return
         }
@@ -132,7 +134,7 @@ class UtenteController {
             }
         }
         else{
-            flash.error = "Password errata!"
+            flash.message = "Password errata!"
             redirect action: 'login'
             return
         }

@@ -36,6 +36,7 @@ class FornituraController {
             fornitura.dipendente = session.utente
             fornitura.annata.giacenza += fornitura.quantita
             fornituraService.save(fornitura)
+            flash.message = "Fornitura creata!"
 
             // Gestisce le notifiche dei clienti
             if(vecchiaGiacenza == 0){
@@ -50,6 +51,11 @@ class FornituraController {
                     it.cliente.removeFromNotifiche(it)
                     notifica.delete(flush: true)
                 }
+            }
+
+            if(session.role == 'dipendente'){
+                redirect controller: 'dipendente', action: 'toolDipendente'
+                return
             }
         } catch (ValidationException e) {
             respond fornitura.errors, view:'create'

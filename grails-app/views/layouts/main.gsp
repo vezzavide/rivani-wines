@@ -32,8 +32,12 @@
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Utente: ${session.utente.toString()} <span class="caret"></span></a>
             <ul class="dropdown-menu" style="background: #515151">
-                <li class="dropdown-item" ><g:link controller="utente" action="logout"><i class="fa fa-user"></i>Logout</g:link></li>
-                <li class="dropdown-item"><g:link controller="utente" action="login"><i class="fa fa-user"></i>Accedi come altro utente</g:link></li>
+                <g:link controller="utente" action="logout">
+                <li class="dropdown-item" >
+
+                        <i class="fa fa-user"></i>Logout
+                    </li></g:link>
+                <g:link controller="utente" action="login"><li class="dropdown-item"><i class="fa fa-user"></i>Accedi come altro utente</li></g:link>
             </ul>
         </li>
     </nav>
