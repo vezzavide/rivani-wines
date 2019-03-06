@@ -132,6 +132,21 @@ class OrdineController {
         return
     }
 
+    //TODO: IMPORTANTE! rendere transactional questo metodo
+    def annullaCarrello(){
+        def carrello = Ordine.findByAttualeCarrelloAndCliente(true, session.utente)
+        def lineeOrdine = carrello.lineeOrdine
+        carrello.delete(flush: true)
+        lineeOrdine.each{
+            def annata = it.annata
+            annata.giacenza += it.quantita
+            annata.save(flush: true)
+        }
+        flash.message = "Ordine annullato."
+        redirect controller: 'catalogo', action: 'catalogo'
+        return
+    }
+
     protected void notFound() {
         request.withFormat {
             form multipartForm {

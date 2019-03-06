@@ -101,7 +101,7 @@
                 <div class="col-md-8">
                     <div class="product-content-right">
                         <div class="woocommerce">
-                            <g:form controller="ordine" action="checkout">
+
                                 <table cellspacing="0" class="shop_table cart">
                                     <thead>
                                         <tr>
@@ -142,12 +142,17 @@
                                                 <h2>
                                                     Totale: € ${carrello.getTotal().toString()}
                                                 </h2>
-                                                <input type="submit" value="Procedi" name="proceed" class="checkout-button button alt wc-forward">
+                                                <g:form controller="ordine" action="checkout">
+                                                    <input type="submit" value="Procedi" name="proceed" class="checkout-button button alt wc-forward">
+                                                </g:form>
+                                                <br>
+                                                <g:form controller="ordine" action="annullaCarrello">
+                                                    <input type="submit" value="Annulla ordine" name="proceed" class="checkout-button button alt wc-forward" style="background-color:#751005">
+                                                </g:form>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
-                            </g:form>
 
 
                         </div>                        
