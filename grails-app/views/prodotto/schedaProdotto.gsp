@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SCHEDA PRODOTTO</title>
+    <title>Rivani Wines</title>
     
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
@@ -26,6 +26,12 @@
 
   </head>
   <body>
+
+  <g:if test="${flash.message}">
+      <div class="alert alert-info" role="alert">
+          ${flash.message}
+      </div>
+  </g:if>
    
     <div class="header-area">
         <div class="container">
@@ -65,7 +71,7 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><g:link controller="catalogo" action="catalogo">Home</g:link></li>
-                        <li><a href="cart.html">Carrello</a></li>
+                        <li><g:link controller="ordine" action="carrello">Carrello</g:link></li>
 
                     </ul>
                 </div>  
@@ -113,8 +119,7 @@
                                     <!-- Elenco annate -->
                                     <g:each in="${prodotto.annate.sort()}" var="annata">
                                         <g:if test="${annata.giacenza == 0}">
-
-                                                <g:if test="${notificheAnno.contains(annata.anno)}">
+                                                <g:if test="${notificheAnno.contains(annata.anno)}"> <!-- notifica già presente -->
                                                     <g:form controller="notifica" action="delete" class="cart">
                                                         <h2>Annata ${annata.anno}</h2>
                                                         <div class="product-inner-price">
@@ -125,7 +130,7 @@
                                                         <button type="submit" class="notifica_button" style="background: none repeat scroll 0 0 #d91708;">Annulla iscrizione</button>
                                                     </g:form>
                                                 </g:if>
-                                                <g:elseif test="${session.utente == null}">
+                                                <g:elseif test="${session.utente == null}"> <!-- utente non loggato -->
                                                     <h2>Annata ${annata.anno}</h2>
                                                     <div class="product-inner-price">
                                                         <ins>€ ${annata.prezzo.toString()} (disponibili: ${annata.giacenza})</ins>
@@ -135,7 +140,7 @@
 
                                                     </g:link>
                                                 </g:elseif>
-                                                <g:else>
+                                                <g:else> <!-- richiesta notifica -->
                                                     <g:form controller="notifica" action="save" class="cart">
                                                         <h2>Annata ${annata.anno}</h2>
                                                         <div class="product-inner-price">
@@ -148,18 +153,36 @@
                                                     </g:form>
                                                 </g:else>
                                         </g:if>
-                                        <g:else>
-                                            <g:form action="" class="cart">
-                                                <h2>Annata ${annata.anno}</h2>
-                                                <div class="product-inner-price">
-                                                    <ins>€ ${annata.prezzo.toString()} (disponibili: ${annata.giacenza})</ins>
+                                        <g:else> <!-- annata presente e pulsante aggiungi carrello -->
+                                            <g:if test="${session.utente == null}"> <!-- utente non loggato -->
+                                                <div class="cart">
+                                                    <h2>Annata ${annata.anno}</h2>
+                                                    <div class="product-inner-price">
+                                                        <ins>€ ${annata.prezzo.toString()} (disponibili: ${annata.giacenza})</ins>
+                                                    </div>
+                                                    <div class="quantity">
+                                                        <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1" max="${annata.giacenza}">
+                                                    </div>
+                                                    <g:link controller="utente" action="login">
+                                                        <button class="add_to_cart_button">Aggiungi al carrello</button>
+                                                    </g:link>
                                                 </div>
-                                                <div class="quantity">
-                                                    <input type="number" size="4" class="input-text qty text" title="Qty" value="0" name="quantity" min="0" step="1" max="${annata.giacenza}">
-                                                </div>
+                                            </g:if>
+                                            <g:else> <!-- utente loggato -->
+                                                <g:form controller="lineaOrdine" action="aggiungiACarrello" class="cart">
+                                                    <h2>Annata ${annata.anno}</h2>
+                                                    <div class="product-inner-price">
+                                                        <ins>€ ${annata.prezzo.toString()} (disponibili: ${annata.giacenza})</ins>
+                                                    </div>
+                                                    <div class="quantity">
+                                                        <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantita" min="1" step="1" max="${annata.giacenza}">
+                                                        <g:hiddenField name="annata" value="${annata.id}"></g:hiddenField>
+                                                    </div>
 
-                                                <button class="add_to_cart_button" type="submit">Aggiungi al carrello</button>
-                                            </g:form>
+                                                    <button class="add_to_cart_button" type="submit">Aggiungi al carrello</button>
+                                                </g:form>
+                                            </g:else>
+
                                         </g:else>
                                         <br><br><br>
 

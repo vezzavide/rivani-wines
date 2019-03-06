@@ -1,10 +1,17 @@
 
 <asset:stylesheet src="shopTemplate/style__.css"/>
+<asset:stylesheet src="shopTemplate/css/bootstrap.min.css"/>
 	
-<div class="wrapper fadeInDown">
+<div class="wrapper fadeInDown" style="background-color:#750c4a">
   <div id="formContent">
     <!-- Tabs Titles -->
-
+  <!-- Display Error -->
+    <g:if test="${flash.message}">
+      <div class="alert alert-info" role="alert">
+        ${flash.message}
+      </div>
+    </g:if>
+    <br>
 
 
 
@@ -15,10 +22,7 @@
       <input type="submit" class="fadeIn fourth" value="Accedi">
     </g:form>
 
-      <!-- Display Error -->
-      <g:if test="${flash.error}">
-          <div class="alert alert-error" style="display: block">${flash.error}</div>
-      </g:if>
+
 
     <!-- Remind Passowrd -->
 
@@ -28,3 +32,7 @@
 
   </div>
 </div>
+
+<asset:javascript src="jquery-3.3.1.min.js"/>
+
+<asset:javascript src="bootstrap.min.js"/>

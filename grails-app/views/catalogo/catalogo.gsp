@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CATALOGO</title>
+    <title>Rivani Wines</title>
     
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
@@ -25,6 +25,12 @@
 
   </head>
   <body>
+
+  <g:if test="${flash.message}">
+      <div class="alert alert-info" role="alert">
+          ${flash.message}
+      </div>
+  </g:if>
    
     <div class="header-area">
         <div class="container">
@@ -63,7 +69,7 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li class="active"><g:link action="catalogo">Home</g:link></li>
-                        <li><a href="cart.html">Carrello</a></li>
+                        <li><g:link controller="ordine" action="carrello">Carrello</g:link></li>
 
                     </ul>
                 </div>  
@@ -110,32 +116,6 @@
                 </g:each>
                 
             </div>
-            
-%{--            <div class="row">
-                <div class="col-md-12">
-                    <div class="product-pagination text-center">
-                        <nav>
-                          <ul class="pagination">
-                            <li>
-                              <a href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                              </a>
-                            </li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li>
-                              <a href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                              </a>
-                            </li>
-                          </ul>
-                        </nav>                        
-                    </div>
-                </div>
-            </div>--}%
         </div>
     </div>
 

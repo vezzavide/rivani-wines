@@ -102,6 +102,12 @@ class OrdineController {
 
     }
 
+    def carrello(){
+        //flash.message = "prova"
+
+        return
+    }
+
     protected void notFound() {
         request.withFormat {
             form multipartForm {

@@ -1,10 +1,17 @@
 
 <asset:stylesheet src="shopTemplate/style__.css"/>
+<asset:stylesheet src="shopTemplate/css/bootstrap.min.css"/>
 	
-<div class="wrapper fadeInDown">
+<div class="wrapper fadeInDown"  style="background-color:#750c4a">
   <div id="formContent">
     <!-- Tabs Titles -->
+    <g:if test="${flash.message}">
+      <div class="alert alert-info" role="alert">
+        ${flash.message}
+      </div>
+    </g:if>
 
+    <br>
 
 
     <!-- Login Form -->
@@ -22,3 +29,7 @@
 
   </div>
 </div>
+
+<asset:javascript src="jquery-3.3.1.min.js"/>
+
+<asset:javascript src="bootstrap.min.js"/>

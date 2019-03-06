@@ -7,7 +7,7 @@ class LineaOrdine {
 
     static constraints = {
         ordine()
-        quantita notEqual: 0
+        quantita min: 0
         annata()
     }
 

@@ -22,8 +22,8 @@ class Annata {
         prodotto()
         // tentativo di ottenere campo TEXT in mysql (e/o altri db)
         prezzo notEqual: BigDecimal.ZERO
-        giacenza validator: {val, obj -> val <= obj.totaleBottiglieProdotte}
-        totaleBottiglieProdotte notEqual: 0
+        giacenza validator: {val, obj -> val <= obj.totaleBottiglieProdotte}, min: 0
+        totaleBottiglieProdotte min: 0
         note size: 0..65535, widget: 'textarea'
     }
 

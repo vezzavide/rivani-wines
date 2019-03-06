@@ -87,6 +87,34 @@ class LineaOrdineController {
         }
     }
 
+
+    def aggiungiACarrello(){
+        def annata = Annata.get(params.annata)
+        String quantitaString = params.quantita
+        Integer quantita = quantitaString.toInteger()
+        println("aggiungo al carrello " + quantita.toString() + " bottiglie di " + annata.toString())
+
+        //prendo l'attuale carrello(un'istanza di ordine con attualeCarrello = true) dal database, se esiste,
+        // altrimenti creo l'ordine
+        def ordineCarrello = Ordine.findByAttualeCarrello(true)
+        if(ordineCarrello == null){
+            ordineCarrello = new Ordine()
+            ordineCarrello.data = new Date()
+            ordineCarrello.cliente = session.utente
+            ordineCarrello.evaso = false
+            ordineCarrello.attualeCarrello = true
+        }
+        def lineaOrdine = new LineaOrdine()
+        annata.giacenza -= quantita
+        lineaOrdine.annata = annata
+        lineaOrdine.quantita = quantita
+        ordineCarrello.addToLineeOrdine(lineaOrdine)
+        ordineCarrello.save(flush: true)
+        annata.save(flush: true)
+
+        redirect controller:'prodotto', action: 'schedaProdotto', id: annata.prodotto.id
+    }
+
     protected void notFound() {
         request.withFormat {
             form multipartForm {
